@@ -50,8 +50,6 @@ class My_LSTM_Cell(Layer):
         h = self.activation(c) * ot
         return h, [h, c]
 
-    #def compute_output_shape(self, input_shape):
-    #    return (input_shape[0], input_shape[1], self.units)
 
 
 class My_LSTM_layer(Layer):
@@ -80,7 +78,6 @@ class My_LSTM_layer(Layer):
 
 
 class My_LSTM(Model):
-
     def __init__(
         self, 
         voc_size = 1000,
@@ -93,7 +90,7 @@ class My_LSTM(Model):
         ):
         super(My_LSTM, self).__init__(*args, **kwargs)
         self.emb = Embedding(input_dim=voc_size, output_dim=vec_dim, input_length=max_len)
-        # Keras实现好的LSTM层（快） / 我们自己实现的LSTM层（慢）
+        # Keras瀹炵幇濂界殑LSTM灞傦紙蹇級 / 鎴戜滑鑷繁瀹炵幇鐨凩STM灞傦紙鎱級
         # self.lstm = LSTM(units=units, return_sequences=False)
         self.lstm = My_LSTM_layer(units=units, return_sequences=False)
         self.dense = Dense(units=output_dim, activation='sigmoid')
